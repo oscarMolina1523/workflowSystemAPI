@@ -8,6 +8,7 @@ import {
   SqlReadOperation,
   SqlWriteOperation,
 } from "../../builders/sqlOperations.enum";
+import { PublicUser } from "../../../Domain.Endpoint/dtos/user.dto";
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -22,7 +23,7 @@ export class UserRepository implements IUserRepository {
     this._connection = connection;
   }
 
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<PublicUser[]> {
     const readCommand = this._operationBuilder
       .Initialize(EntityType.User)
       .WithOperation(SqlReadOperation.Select)
@@ -31,18 +32,17 @@ export class UserRepository implements IUserRepository {
 
     return rows.map(
       (row) =>
-        new User({
+        ({
           id: row["ID"],
           name: row["NAME"],
           email: row["EMAIL"],
-          password: row["PASSWORD"],
           areaId: row["AREA_ID"],
           roleId: row["ROLE_ID"],
-        })
+        } as PublicUser)
     );
   }
 
-  async getById(id: string): Promise<User | null> {
+  async getById(id: string): Promise<PublicUser | null> {
     const readCommand = this._operationBuilder
       .Initialize(EntityType.User)
       .WithOperation(SqlReadOperation.SelectById)
@@ -52,14 +52,13 @@ export class UserRepository implements IUserRepository {
     const row = await this._connection.executeScalar(readCommand);
     if (!row) return null;
 
-    return new User({
+    return({
       id: row["ID"],
       name: row["NAME"],
       email: row["EMAIL"],
-      password: row["PASSWORD"],
       areaId: row["AREA_ID"],
       roleId: row["ROLE_ID"],
-    });
+    } as PublicUser);
   }
 
   async getByEmail(email: string): Promise<User | null> {
@@ -84,7 +83,7 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async getByAreaId(areaId: string): Promise<User[]> {
+  async getByAreaId(areaId: string): Promise<PublicUser[]> {
     const builder = this._operationBuilder
       .Initialize(EntityType.User)
       .WithOperation(SqlReadOperation.SelectByField);
@@ -100,14 +99,14 @@ export class UserRepository implements IUserRepository {
 
     return rows.map(
       (row) =>
-        new User({
+        ({
           id: row["ID"],
           name: row["NAME"],
           email: row["EMAIL"],
           password: row["PASSWORD"],
           areaId: row["AREA_ID"],
           roleId: row["ROLE_ID"],
-        })
+        } as PublicUser)
     );
   }
 
