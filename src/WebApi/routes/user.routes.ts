@@ -92,33 +92,6 @@ router.get("/", userController.getUsers);
 
 /**
  * @swagger
- * /users/email/{email}:
- *   get:
- *     summary: Get a user by email
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: email
- *         schema:
- *           type: string
- *         required: true
- *         description: Email of the user
- *     responses:
- *       200:
- *         description: User found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       404:
- *         description: User not found
- *       500:
- *         description: Failed to get user
- */
-router.get("/email/:email", userController.getUserByEmail);
-
-/**
- * @swagger
  * /users/area:
  *   get:
  *     summary: Get all users that belong to the same area as the authenticated user

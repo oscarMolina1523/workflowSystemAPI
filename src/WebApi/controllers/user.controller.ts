@@ -43,27 +43,27 @@ export default class UserController {
     }
   };
 
-  getUserByEmail = async (req: Request, res: Response) => {
-    //http://localhost:3000/users/email/admin@empresa.com
+  // getUserByEmail = async (req: Request, res: Response) => {
+  //   //http://localhost:3000/users/email/admin@empresa.com
 
-    const email = req.params.email;
+  //   const email = req.params.email;
 
-    if (!email) {
-      return res.status(400).json({ message: "Email is required." });
-    }
+  //   if (!email) {
+  //     return res.status(400).json({ message: "Email is required." });
+  //   }
 
-    try {
-      const user = await this.service.getByEmail(email);
+  //   try {
+  //     const user = await this.service.getByEmail(email);
 
-      if (user) {
-        res.status(200).json({ success: true, data: user });
-      } else {
-        res.status(404).json({ message: "User not found" });
-      }
-    } catch {
-      res.status(500).json({ message: "Failed to get user" });
-    }
-  };
+  //     if (user) {
+  //       res.status(200).json({ success: true, data: user });
+  //     } else {
+  //       res.status(404).json({ message: "User not found" });
+  //     }
+  //   } catch {
+  //     res.status(500).json({ message: "Failed to get user" });
+  //   }
+  // };
 
   getUserByAreaId = async (req: Request, res: Response) => {
       const user = decodeToken(req);

@@ -1,13 +1,13 @@
-import { UserDTO } from "../../dtos/user.dto";
+import { PublicUser, UserDTO } from "../../dtos/user.dto";
 import { User } from "../../entities/user.model";
 import { ServiceResult } from "../../utils/serviceResult.type";
 
 export interface IUserService {
-  getUsers(): Promise<User[]>;
-  getById(id: string): Promise<User | null>;
+  getUsers(): Promise<PublicUser[]>;
+  getById(id: string): Promise<PublicUser | null>;
   getByEmail(email: string): Promise<User | null>;
-  getByAreaId(areaId: string): Promise<User[]>;
-  addUser(user: UserDTO): Promise<ServiceResult<User>>;
-  updateUser(id: string, user: UserDTO): Promise<ServiceResult<User | null>>;
+  getByAreaId(areaId: string): Promise<PublicUser[]>;
+  addUser(user: UserDTO): Promise<ServiceResult<PublicUser>>;
+  updateUser(id: string, user: UserDTO): Promise<ServiceResult<PublicUser | null>>;
   deleteUser(id: string): Promise<{ success: boolean; message: string }>;
 }
