@@ -119,7 +119,7 @@ export class UserRepository implements IUserRepository {
     await this._connection.executeNonQuery(writeCommand);
   }
 
-  async update(user: User): Promise<void> {
+  async update(user: PublicUser): Promise<void> {
     const writeCommand = this._operationBuilder
       .From(EntityType.User, user)
       .WithOperation(SqlWriteOperation.Update)
@@ -128,7 +128,7 @@ export class UserRepository implements IUserRepository {
     await this._connection.executeNonQuery(writeCommand);
   }
 
-  async delete(user: User): Promise<void> {
+  async delete(user: PublicUser): Promise<void> {
     const writeCommand = this._operationBuilder
       .From(EntityType.User, user)
       .WithOperation(SqlWriteOperation.Delete)

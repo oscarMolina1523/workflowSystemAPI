@@ -7,6 +7,6 @@ export interface IUserRepository {
   getByEmail(email: string): Promise<User | null>;
   getByAreaId(areaId: string): Promise<PublicUser[]>
   create(user: User): Promise<void>;
-  update(user: User): Promise<void>;
-  delete(user: User): Promise<void>;
+  update(user: PublicUser): Promise<void>;
+  delete(user: PublicUser): Promise<void>;
 }
