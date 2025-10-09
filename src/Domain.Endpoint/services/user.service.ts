@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { UserDTO } from "../dtos/user.dto";
+import { PublicUser, UserDTO } from "../dtos/user.dto";
 import { User } from "../entities/user.model";
 import { IUserService } from "../interfaces/services/userService.interfaz";
 import { ServiceResult } from "../utils/serviceResult.type";
@@ -13,11 +13,11 @@ export default class UserService implements IUserService {
     this._userRepository = userRepository;
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<PublicUser[]> {
     return await this._userRepository.getAll();
   }
 
-  async getById(id: string): Promise<User | null> {
+  async getById(id: string): Promise<PublicUser | null> {
     return await this._userRepository.getById(id);
   }
 
@@ -25,11 +25,11 @@ export default class UserService implements IUserService {
     return await this._userRepository.getByEmail(email);
   }
 
-  async getByAreaId(areaId: string): Promise<User[]> {
+  async getByAreaId(areaId: string): Promise<PublicUser[]> {
     return await this._userRepository.getByAreaId(areaId);
   }
 
-  async addUser(user: UserDTO): Promise<ServiceResult<User>> {
+  async addUser(user: UserDTO): Promise<ServiceResult<PublicUser>> {
     const id = generateId();
     const newUser = new User({
       id,
@@ -44,7 +44,7 @@ export default class UserService implements IUserService {
     return { success: true, message: "User created", data: newUser };
   }
 
-  async updateUser(id: string, user: UserDTO): Promise<ServiceResult<User | null>> {
+  async updateUser(id: string, user: UserDTO): Promise<ServiceResult<PublicUser | null>> {
     const existing = await this._userRepository.getById(id);
     if (!existing) {
       return { success: false, message: "User not found", data: null };
